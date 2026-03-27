@@ -1,0 +1,1 @@
+W zalozeniach skrypt ma tworzyc baseline ( md5sum ) dla plikow  wpodanym przez uzytkownika katalogu oraz dodac wpis co cronatab  ktory przy kazdym reboot sprawdza integralnosc, sciezki sa uproszczone, powinny byc jako zmienne dla poprawy wizualnej
