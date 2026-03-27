@@ -8,3 +8,8 @@ realpython.com
 geeksforgeeks.org
 
 python101.readthedocs.io
+
+
+devhints.io/bash
+tldp.org/LDP/abs/html
+linuxcommand.org
