@@ -1,0 +1,1 @@
+skrypt ktory tworzy archiwum wskazanego folderu z plikami oraz usuwa archiwa .tar.gz i .tar starsze niz 7 dni, po uruchomieniu skryptu wpisuje sie on w crontab i po kazdym reboocie sie odpala - zeby pociwczyc autmatyzacje
