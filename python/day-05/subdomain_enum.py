@@ -7,19 +7,16 @@ import sys
 # if len(sys.argv) !=3:
 #     print("Blad skryptu, uzycie <skrypt> <domena> <slownik>")
 #     exit(1)
-
-
 try:
     with open("list.txt","r") as file:
-        try:
-            info = socket.getaddrinfo("google.com",443)
-            print(info)
-        except socket.timeout:
-            print(f"Timeout error")
-        except Exception as e:
-            print(f"Error with conn: {e}")
-        
-            
+        for word in file:
+            try:
+                info = socket.getaddrinfo(f"{word.strip()}.google.com",443)
+                print(f"[+] Found: {{word.strip()}}.google.com")
+            except socket.gaierror:
+                pass
+            except Exception as e:
+                print(f"Subdomain not found:{word.strip()}.google.com")          
 except Exception as e:
     print(f"Blad otworzenia pliku: {e}")
     exit(1)

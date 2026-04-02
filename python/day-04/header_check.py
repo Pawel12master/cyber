@@ -16,6 +16,7 @@ if len(sys.argv) != 2:
 url = sys.argv[1]
 
 
+
 try:
     req = requests.get(url, timeout=5)
 except requests.exceptions.RequestException as e:
@@ -30,3 +31,5 @@ for head in expected_headers:
         print(f"Naglowek {head}: brak ")
     else:
         print(f"Naglowek {head}: {value}")
+
+
