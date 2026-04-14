@@ -6,15 +6,15 @@ import sys
 load_dotenv()
 API_KEY=os.environ.get("VT_API")
 headers = {"x-apikey": API_KEY}
+if len(sys.argv) != 2:
+    print("Uzycie: python skrypt.py <lista_ip.txt>")
+    sys.exit(1)
 file = sys.argv[1]
 ip_res = []
 asn_res = []
 mal_res = []
 sus_res = []
 country_res = []
-if len(sys.argv) != 2:
-    print("Uzycie: python skrypt.py <lista_ip.txt>")
-    sys.exit(1)
 if not file:
     print("nie podano dobrego pliku, uzycie: <skrypt> <lista IP>")
     sys.exit(1)
