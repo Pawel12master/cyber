@@ -2,6 +2,8 @@ import requests
 import os
 from dotenv import load_dotenv
 import sys
+import json
+import datetime
 
 load_dotenv()
 API_KEY=os.environ.get("VT_API")
@@ -10,11 +12,8 @@ if len(sys.argv) != 2:
     print("Uzycie: python skrypt.py <lista_ip.txt>")
     sys.exit(1)
 file = sys.argv[1]
-ip_res = []
-asn_res = []
-mal_res = []
-sus_res = []
-country_res = []
+ip_results = []
+
 if not file:
     print("nie podano dobrego pliku, uzycie: <skrypt> <lista IP>")
     sys.exit(1)
@@ -32,11 +31,13 @@ def read_ip(file):
                     malicious = response["data"]["attributes"]["last_analysis_stats"]["malicious"]
                     suspicious = response["data"]["attributes"]["last_analysis_stats"]["suspicious"]
                     country = response["data"]["attributes"]["country"]
-                    ip_res.append(ip)
-                    asn_res.append(asn)
-                    mal_res.append(malicious)
-                    sus_res.append(suspicious)
-                    country_res.append(country)
+                    ip_results.append({
+                        "ip":ip,
+                        "asn":asn,
+                        "mal":malicious,
+                        "sus": suspicious,
+                        "country":country
+                    })
                 except KeyError as e:
                     print(f"Brak pola w odpowiedzi API: {e}")
                 except requests.exceptions.HTTPError:
@@ -48,11 +49,21 @@ def read_ip(file):
 
 read_ip(file)
 
-for ip, asn, country, mal, sus in zip(ip_res,asn_res,country_res, mal_res, sus_res):
-    if mal >= 5:
-        verdict = "malicious"
-    elif mal >= 1 or sus >= 1:
-        verdict = "suspicious"
-    else:
-        verdict = "clean"
-    print(f"Wynik dla IP: {ip} -> {verdict}: pochodzenie: {country} i network: {asn}")
+#for result in ip_results:
+#    if result["mal"] >= 5:
+#        verdict = "malicious"
+#    elif result["mal"] >= 1 or result["sus"] >= 1:
+#        verdict = "suspicious"
+#    else:
+#        verdict = "clean"
+#    print(f"Wynik dla IP: {result["ip"]} -> {verdict}: pochodzenie: {result["country"]} i network: {result["asn"]}")
+
+raport = {
+    "timestamp": datetime.datetime.now().isoformat(),
+    "total_scanned": len(ip_results),
+    "results": ip_results
+}
+file_name = f"raport_{datetime.datetime.now().strftime('%Y_%m_%d_%H%M')}.json"
+with open(file_name,"w") as f:
+    json.dump(raport,f,indent=2,ensure_ascii=False)
+

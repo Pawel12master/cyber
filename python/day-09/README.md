@@ -19,3 +19,21 @@ Memory:
 - jeśli pole może nie istnieć w odpowiedzi API używaj .get("pole", "wartość_domyślna")
 zamiast ["pole"] które rzuci KeyError wtedy mamy cos takiego -> country = response["data"]["attributes"].get("country", "UNKNOWN")
 - Przy .env warto dopisać że trzeba wywołać load_dotenv() przed os.environ.get() — bez tego plik .env nie jest wczytany i klucz będzie None
+- zapis do json:
+
+dane = {
+    "ip": "1.2.3.4",
+    "verdict": "clean"
+}
+
+# tworzymy nazwę pliku z datą
+nazwa_pliku = f"raport_{datetime.datetime.now().strftime('%Y_%m_%d_%H%M')}.json"
+
+# zapisujemy
+with open(nazwa_pliku, "w") as f:
+    json.dump(dane, f, indent=4, ensure_ascii=False)
+
+open(nazwa_pliku, "w") — otwiera/tworzy plik do zapisu
+json.dump(dane, f) — zapisuje dane do pliku wskazanego przez f
+indent=4 — wcięcia, bez tego JSON będzie w jednej linii
+ensure_ascii=False — pozwala na polskie znaki
