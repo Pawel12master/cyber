@@ -1,0 +1,1 @@
+Cel: wyciągnij statystyki z access.log serwera webowego • policz unikalne adresy IP które odpytywały serwer • wypisz top 10 IP z największą liczbą requestów • policz ile było odpowiedzi 200, 404, 500 • znajdź najbardziej odpytywany endpoint (URL) • zapisz raport do pliku txt z datą w nazwie
