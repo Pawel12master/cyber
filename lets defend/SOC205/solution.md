@@ -1,8 +1,5 @@
-Proszę, oto poprawiona i sformatowana notatka:
-
-```markdown
 # Raport z Incydentu Bezpieczeństwa: SOC205
-**Data raportu:** 2024-02-28
+**Data raportu:** 2024-02-28  
 **Status:** ZAKOŃCZONY
 
 ---
@@ -78,4 +75,26 @@ Po wykonaniu makra, host `Jayne` nawiązał połączenie wychodzące:
 - **Blokada na podstawie reputacji plików:** Wdrożenie reguł AV/EDR blokujących uruchomienie plików o złośliwym hashu (integracja z Threat Intelligence).
 - **Egress Filtering:** Wdrożenie filtrowania ruchu wychodzącego – blokada połączeń do nieznanych/złośliwych domen i adresów IP na poziomie firewalla oraz DNS Filtering.
 - **Świadomość użytkowników:** Przeprowadzenie szkoleń z zakresu rozpoznawania phishingu (szczególnie fałszywych faktur `.docm`).
-```
+
+---
+
+## 7. Executive Summary (EN)
+
+On February 28, 2024, at 08:42 AM, a security alert was triggered on host `Jayne`
+(172.16.17.198) due to the execution of a **malicious macro** embedded in a phishing
+attachment (`edit1-invoice.docm`).
+
+The attack was delivered via a phishing email from `jake.admin@cybercommunity.info`.
+Once the file was opened, the macro executed and established an outbound connection
+to a **Command & Control server** (`WWW.GREYHATHACKER.NET` / `92.204.221.16`),
+from which a malicious executable `mess.exe` was downloaded.
+
+The incident was made possible by three security gaps:
+- No email filtering rules to block malicious attachments
+- No hash-based execution blocking on the endpoint
+- No egress filtering to prevent C2 communication
+
+**The host was isolated** upon detection. The case has been escalated for further
+post-compromise forensic analysis.
+
+**Verdict: True Positive – Malicious Macro Execution via Phishing**
