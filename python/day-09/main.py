@@ -63,7 +63,7 @@ raport = {
     "total_scanned": len(ip_results),
     "results": ip_results
 }
-file_name = f"raport_{datetime.datetime.now().strftime('%Y_%m_%d_%H%M')}.json"
+file_name = f"raport_{datetime.datetime.now().strftime('%Y-%m-%d_%H%M')}.json"
 with open(file_name,"w") as f:
     json.dump(raport,f,indent=2,ensure_ascii=False)
 
